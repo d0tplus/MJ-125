@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhjt02syx80vm"]
+
+[ext_resource type="Script" path="res://src/Player/MovementControllerClamped.cs" id="1_s4sow"]
+[ext_resource type="PackedScene" uid="uid://b3mwwhvb5ixs8" path="res://src/Player/Projectile/Projectile.tscn" id="2_22gi0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7buke"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qb738"]
+albedo_color = Color(0.160784, 1, 0.0392157, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vrlh4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5b6hb"]
+size = Vector3(0.98, 1, 1)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_s4sow")
+_projectile = ExtResource("2_22gi0")
+
+[node name="Player" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.593384, 0, 0, 0, 0.399968, 0, 0, 0, 0.688642, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_7buke")
+material_overlay = SubResource("StandardMaterial3D_qb738")
+mesh = SubResource("SphereMesh_vrlh4")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.493966, 0, 0, 0, 0.495727, 0, 0, 0, 0.485978, 0, 0, 0)
+shape = SubResource("BoxShape3D_5b6hb")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.382492)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="OnTimeOut"]

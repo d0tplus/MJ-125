@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://o3hf06odyu07"]
+
+[ext_resource type="Script" path="res://src/LoseZone/LoseZone.cs" id="1_hddy2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_56v8i"]
+
+[node name="LoseZone" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.39863)
+script = ExtResource("1_hddy2")
+
+[node name="Area3D" type="Area3D" parent="." groups=["LoseZone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0396757)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(4.95563, 0, 0, 0, 1.51725, 0, 0, 0, 0.77122, 0, 0.728729, 0.095026)
+shape = SubResource("BoxShape3D_56v8i")
+
+[connection signal="area_entered" from="Area3D" to="." method="OnLoseZoneAreaEnter"]

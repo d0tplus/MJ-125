@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbh5mwbmo14jb"]
+
+[ext_resource type="Script" path="res://src/Beat/Beat.cs" id="1_8d51d"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_lpnau"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0hl08"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_llx10"]
+
+[node name="Beat" type="Node3D" groups=["Beat"]]
+transform = Transform3D(0.485354, 0, 0, 0, 0.391352, 0, 0, 0, 0.292322, 0, 0, 0)
+script = ExtResource("1_8d51d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.03772)
+mesh = SubResource("PrismMesh_lpnau")
+surface_material_override/0 = SubResource("StandardMaterial3D_0hl08")
+
+[node name="Hurtbox" type="Area3D" parent="." groups=["Beat"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("BoxShape3D_llx10")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="OnEnterHurtBox"]

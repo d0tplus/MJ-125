@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtxlngot5mng8"]
+
+[ext_resource type="Script" path="res://src/Spawner/Spawner.cs" id="1_y33m7"]
+[ext_resource type="PackedScene" uid="uid://cbh5mwbmo14jb" path="res://src/Beat/Beat.tscn" id="2_jvaus"]
+
+[node name="Spawner" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.96204)
+script = ExtResource("1_y33m7")
+_beat = ExtResource("2_jvaus")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimeOut"]
