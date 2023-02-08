@@ -4,6 +4,7 @@ using System;
 public partial class Spawner : Node3D
 {
 	[Export] private PackedScene _beat;
+	private ShakeableCamera3D _camera;
 	private Random _randomGen;
 	public override void _Ready()
 	{
@@ -15,6 +16,7 @@ public partial class Spawner : Node3D
 		float zPosition = (float) _randomGen.NextDouble() * 2; // (max - min) + min, in our case we using 2 x-length and 0 z-height
 		return new Vector3(zPosition, 0.25f, 0f);
 	}
+
 	private void SpawnNote()
 	{
 		var beat = _beat.Instantiate<Beat>();

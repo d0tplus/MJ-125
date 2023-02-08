@@ -5,6 +5,7 @@ public partial class Beat : Node3D
 {
 	public float Speed = 0.09f;
 	private int _pointValue = 100;
+	private float _deathShakeValue = 7;
 
 	public override void _Process(double delta)
 	{

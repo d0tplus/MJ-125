@@ -10,7 +10,7 @@ albedo_color = Color(1, 0, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_llx10"]
 
 [node name="Beat" type="Node3D" groups=["Beat"]]
-transform = Transform3D(0.485354, 0, 0, 0, 0.391352, 0, 0, 0, 0.292322, 0, 0, 0)
+transform = Transform3D(0.485353, 0.00053497, -0.000135875, -0.000663544, 0.391352, -9.95451e-05, 0.000225378, 0.00013351, 0.292322, 0, 0, 0)
 script = ExtResource("1_8d51d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

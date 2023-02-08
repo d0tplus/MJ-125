@@ -3,8 +3,12 @@ using System;
 
 public partial class MovementControllerClamped : CharacterBody3D
 {
+    [Signal]
+    public delegate void FiredEventHandler(float shakeAmount);
+
     private const float Speed = 5.0f;
     [Export] private PackedScene _projectile;
+    [Export] private float _shotStrength = 5.0f;
     private bool _hasFired;
 
     public override void _UnhandledInput(InputEvent @event)
@@ -36,13 +40,17 @@ public partial class MovementControllerClamped : CharacterBody3D
 
     private void Fire()
     {
-        _hasFired = true; 
         Projectile projectile = _projectile.Instantiate<Projectile>();
         Marker3D muzzle = GetNode<Marker3D>("Muzzle");
         Timer coolDown = GetNode<Timer>("Timer");
+        
         projectile.Position = muzzle.GlobalPosition;
         GetTree().Root.GetNode("World").AddChild(projectile);
+        
+        _hasFired = true; 
         coolDown.Start();
+        
+        EmitSignal(nameof(Fired), _shotStrength);
     }
 
     private void OnTimeOut()

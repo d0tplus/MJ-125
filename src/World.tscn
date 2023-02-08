@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cv8ssjgen2hai"]
+[gd_scene load_steps=10 format=3 uid="uid://cv8ssjgen2hai"]
 
 [ext_resource type="PackedScene" uid="uid://bhjt02syx80vm" path="res://src/Player/Player.tscn" id="1_0oxk5"]
 [ext_resource type="PackedScene" uid="uid://o3hf06odyu07" path="res://src/LoseZone/LoseZone.tscn" id="1_qy7ll"]
 [ext_resource type="PackedScene" uid="uid://cbh5mwbmo14jb" path="res://src/Beat/Beat.tscn" id="3_5exqf"]
 [ext_resource type="PackedScene" uid="uid://dtxlngot5mng8" path="res://src/Beat/Spawner.tscn" id="3_wlytw"]
+[ext_resource type="Script" path="res://src/ShakeableCamera3D.cs" id="3_yshl7"]
 
 [sub_resource type="Environment" id="Environment_ce6l2"]
 background_mode = 2
@@ -18,9 +19,9 @@ reflected_light_source = 2
 
 [node name="World" type="Node"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Canvas" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="Control" parent="CanvasLayer"]
+[node name="HUD" type="Control" parent="Canvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,19 +29,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Points" type="Label" parent="CanvasLayer/HUD"]
+[node name="ScoreDisplay" type="Control" parent="Canvas/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="Canvas/HUD/ScoreDisplay"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -152.0
-offset_top = 75.005
-offset_right = -91.0
-offset_bottom = 101.005
+offset_left = -176.0
+offset_top = 83.0
+offset_right = -115.0
+offset_bottom = 109.0
 grow_horizontal = 0
-text = "Score: 0"
+text = "Score:"
 
-[node name="Control" type="Control" parent="CanvasLayer/HUD"]
+[node name="Points" type="Label" parent="Canvas/HUD/ScoreDisplay"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -123.0
+offset_top = 84.0
+offset_right = -62.0
+offset_bottom = 110.0
+grow_horizontal = 0
+text = "0"
+
+[node name="HighScoreDisplay" type="Control" parent="Canvas/HUD"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +69,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/Control"]
+[node name="HighScore" type="Label" parent="Canvas/HUD/HighScoreDisplay"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -217.0
+offset_top = 64.0
+offset_right = -130.0
+offset_bottom = 90.0
+grow_horizontal = 0
+text = "High Score:"
+
+[node name="Points" type="Label" parent="Canvas/HUD/HighScoreDisplay"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -123.0
+offset_top = 65.0
+offset_right = -62.0
+offset_bottom = 91.0
+grow_horizontal = 0
+text = "0"
+
+[node name="Control" type="Control" parent="Canvas/HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,7 +102,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/Control/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/HUD/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/HUD/Control/HBoxContainer"]
 layout_mode = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -74,7 +128,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("BoxShape3D_36h0x")
 
 [node name="LossZone" parent="." instance=ExtResource("1_qy7ll")]
-transform = Transform3D(0.996348, 0, 0, 0, 0.996348, 0, 0, 0, 0.996348, 0, 0, 15.978)
+transform = Transform3D(0.996348, 0, 0, 0, 0.996348, 0, 0, 0, 0.996348, 0, 0, 17.5289)
 
 [node name="Player" parent="." instance=ExtResource("1_0oxk5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00356674, 0.182634, 17.4881)
@@ -82,6 +136,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00356674, 0.182634, 17.488
 [node name="MainCamera" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.345199, 0.600006)
 fov = 76.6
+script = ExtResource("3_yshl7")
 
 [node name="Spawner" parent="." instance=ExtResource("3_wlytw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.438364, 0.164694)
@@ -102,3 +157,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.55045, 0.333538, 17.5581)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.216201, -0.573283)
 shape = SubResource("BoxShape3D_hbrj0")
+
+[connection signal="Fired" from="Player" to="Player/MainCamera" method="AddScreenShake"]
